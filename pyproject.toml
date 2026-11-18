@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "interactive-grouping"
+version = "0.2.0"
+description = "Interactive Jupyter widget for viewing and editing optbinning groupings (WoE binning)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "optbinning>=0.19",
+    "ipywidgets>=7.6",
+    "plotly>=5",
+    "pandas",
+    "numpy",
+]
+
+[project.optional-dependencies]
+matplotlib = ["matplotlib"]
+dev = ["pytest", "ruff", "jupyterlab", "notebook", "nbconvert", "nbformat", "ipykernel",
+       "matplotlib"]
+
+[tool.setuptools]
+packages = ["interactive_grouping"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+# --------------------------------------------------------------------------- #
+# Code style: PEP 8 + numpydoc docstrings (PEP 257), checked with `ruff check .`
+# --------------------------------------------------------------------------- #
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    "E", "W",   # pycodestyle (PEP 8)
+    "F",        # pyflakes
+    "I",        # isort
+    "N",        # pep8-naming
+    "D",        # pydocstyle (PEP 257)
+    "B",        # flake8-bugbear
+    "UP",       # pyupgrade
+    "SIM",      # flake8-simplify
+    "C4",       # flake8-comprehensions
+    "PT",       # flake8-pytest-style
+    "RUF",      # ruff-specific
+]
+ignore = [
+    "D105",     # magic methods need no docstring
+    "D107",     # __init__ is documented in the class docstring (numpydoc)
+    "N803",     # `X` argument: scikit-learn / optbinning naming convention
+    "N806",
+    "RUF001",   # intentional unicode characters in UI strings (…, ◀, ✓)
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]                                  # test names describe the tests
+"interactive_grouping/strategies.py" = ["D102"]    # overrides are documented in the base class

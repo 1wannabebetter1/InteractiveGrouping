@@ -1,0 +1,6 @@
+optbinning>=0.19
+ipywidgets>=7.6
+plotly>=5
+pandas
+numpy
+matplotlib
